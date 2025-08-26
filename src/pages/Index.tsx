@@ -1,13 +1,48 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React, { useState } from 'react';
+import { CVInterviewChat } from '@/components/CVInterviewChat';
+import { CVPreview } from '@/components/CVPreview';
+
+interface UserData {
+  name?: string;
+  email?: string;
+  phone?: string;
+  location?: string;
+  summary?: string;
+  experience?: Array<{
+    company: string;
+    position: string;
+    duration: string;
+    description: string;
+  }>;
+  education?: Array<{
+    institution: string;
+    degree: string;
+    year: string;
+  }>;
+  skills?: string[];
+}
 
 const Index = () => {
+  const [currentView, setCurrentView] = useState<'interview' | 'preview'>('interview');
+  const [userData, setUserData] = useState<UserData>({});
+
+  const handleInterviewComplete = (data: UserData) => {
+    setUserData(data);
+    setCurrentView('preview');
+  };
+
+  const handleBackToInterview = () => {
+    setCurrentView('interview');
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      {currentView === 'interview' ? (
+        <CVInterviewChat onComplete={handleInterviewComplete} />
+      ) : (
+        <CVPreview userData={userData} onBack={handleBackToInterview} />
+      )}
+    </>
   );
 };
 
