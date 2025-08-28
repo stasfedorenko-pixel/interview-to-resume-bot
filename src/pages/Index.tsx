@@ -1,8 +1,8 @@
 import React from 'react';
-import { CVBuilder } from '@/components/CVBuilder';
+import { CoreCVBuilder } from '@/components/CoreCVBuilder';
 
 const Index = () => {
-  return <CVBuilder />;
+  return <CoreCVBuilder />;
 };
 
 export default Index;
